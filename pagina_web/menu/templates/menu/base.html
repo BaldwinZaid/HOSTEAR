@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+    <title>Debuggers</title>
+    <link rel="stylesheet" href="/static/css/prueba1.css" type="text/css">
+</head>
+<body>
+    
+    <form id="selectionForm" method="GET" hx-post="{% url 'display' %}" hx-target="#display-area">
+        {% csrf_token %}
+        <div class="dropdown-container">
+            <select id="firstDropdown" 
+                name= 'planta'
+                hx-get="{% url 'get_plagas' %}"
+                hx-trigger="change"
+                hx-target= "#plaga"
+
+                >
+                
+
+                <option value="" selected disabled>Escoja una planta</option>
+                {% for planta in plants %}
+                    <option value="{{ planta.planta }}">{{ planta.planta }}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+
+        <div id='plaga'>
+
+            {% include 'menu/plaga.html' %}
+        </div>
+
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+
+        <div id="display-area" hx-target="#display-area" hx-swap="innerHTML">
+
+        </div>
+
+    </form>
+
+    
+</body>
+</html>
+
