@@ -24,5 +24,6 @@ from menu import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(menu.urls))
+    path('', include(menu.urls)),
+    path('get_plants/', include('menu.urls'))
 ]
