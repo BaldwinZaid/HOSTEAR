@@ -11,3 +11,10 @@ class Datos(models.Model):
     dosis= models.CharField(_('dosis'), max_length=255)
     informacion= models.CharField(_('info'), max_length=2000)
     etiqueta= models.CharField(_('etiqueta'), max_length=2000)
+
+class UserIP(models.Model):
+    ip_address = models.GenericIPAddressField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.ip_address
