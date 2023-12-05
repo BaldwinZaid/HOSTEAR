@@ -1,10 +1,41 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
-    <title>Debuggers</title>
-    <link rel="stylesheet" href="/static/css/prueba1.css" type="text/css">
+    <title>Mata Bicho</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'imagenes/chinita.png' %}">
+    <link rel="stylesheet" href="{% static 'css/prueba1.css' %}" type="text/css">
+    <style>
+        /* Style for disclaimer window */
+        #disclaimer {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffd700; /* Yellow background color */
+            color: #000; /* Black text color */
+            padding: 10px;
+            text-align: center;
+            width: 80%; /* Adjust the width as needed */
+            border-radius: 5px; /* Optional: Add rounded corners */
+            z-index: 1000;
+        }
+
+        /* Style for close button */
+        #closeDisclaimer {
+            cursor: pointer;
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #333; /* Dark background color */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 3px; /* Optional: Add rounded corners */
+        }
+    </style>
 </head>
 <body>
     
@@ -16,34 +47,49 @@
                 hx-get="{% url 'get_plagas' %}"
                 hx-trigger="change"
                 hx-target= "#plaga"
-
-                >
-                
-
+            >
                 <option value="" selected disabled>Escoja una planta</option>
                 {% for planta in plants %}
                     <option value="{{ planta.planta }}">{{ planta.planta }}</option>
                 {% endfor %}
             </select>
-            
+        </div>
+        
+            <!-- Logo container -->
+        <div class="logo-container">
+            <img src="{% static 'imagenes\chinita.png' %}" alt="Logo">
         </div>
 
         <div id='plaga'>
-
             {% include 'menu/plaga.html' %}
         </div>
 
         <div>
-            <button type="submit">Submit</button>
+            <button type="submit">Buscar</button>
         </div>
 
-        <div id="display-area" hx-target="#display-area" hx-swap="innerHTML">
-
-        </div>
-
+        <div id="display-area" hx-target="#display-area" hx-swap="innerHTML"></div>
     </form>
 
-    
+    <!-- Disclaimer window -->
+    <div id="disclaimer">
+        <p>Terminos y Condiciones: Para una mejor experiencia, recopilamos datos sobre su ubicación.</p>
+        <p>Disclaimer: Información referencial, leer instrucciones del fabricante y legislación local. No nos hacemos responsables por el uso de los productos</p>
+        <button id="closeDisclaimer">Cerrar</button>
+    </div>
+
+    <script>
+        // JavaScript to show/hide disclaimer and handle close button click
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show disclaimer
+            document.getElementById('disclaimer').style.display = 'block';
+
+            // Close disclaimer on button click
+            document.getElementById('closeDisclaimer').addEventListener('click', function () {
+                document.getElementById('disclaimer').style.display = 'none';
+            });
+        });
+    </script>
+
 </body>
 </html>
-

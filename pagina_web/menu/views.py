@@ -9,7 +9,7 @@ from django.http import JsonResponse
 # Create your views here.
 
 def get_plants(request):
-    plants= Datos.objects.values('planta').distinct()
+    plants= Datos.objects.values('planta').distinct().order_by('planta')
     listplants=[]
     for el in plants:
         y='planta'
@@ -22,7 +22,8 @@ def get_plants(request):
 def get_plagas(request):
     planta=request.GET.get('planta')
     #print(planta)
-    plaga= Datos.objects.all().filter(planta=planta).values_list('plaga')
+    #PREVIOUS_plaga= Datos.objects.all().filter(planta=planta).values_list('plaga')
+    plaga = Datos.objects.all().filter(planta=planta).values_list('plaga').distinct().order_by('plaga')
     context={'plaga':plaga}
     #plagaselect=request.GET.get('plaga')
     #print(plagaselect)

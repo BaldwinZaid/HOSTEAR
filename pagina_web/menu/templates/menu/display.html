@@ -6,12 +6,12 @@
     <title>Display Data</title>
 </head>
 <body>
-    <h1>Selected Data</h1>
+    <h1>Resultados Busqueda</h1>
 
     <div>
     <ul>
         {% for data in results %}
-            <li>
+            <li class="result-item">
                 <strong>Pesticida:</strong> {{ data.pesticida }}<br>
                 <strong>Planta:</strong> {{ data.planta }}<br>
                 <strong>Plaga:</strong> {{ data.plaga }}<br>
@@ -21,7 +21,7 @@
                 <strong>Etiqueta:</strong> <a href="{{ data.etiqueta }}">{{ data.pesticida }}</a><br>
             </li>
         {% empty %}
-            <li>No data found for the selected plant and plague.</li>
+            <li>Seleccione Buscar.</li>
         {% endfor %}
     </ul>
 </div>
